@@ -103,6 +103,13 @@ RCT_CUSTOM_VIEW_PROPERTY(textColor, UIColor, RNSearchBar)
     }
 }
 
+RCT_CUSTOM_VIEW_PROPERTY(cancelColor, UIColor, RNSearchBar)
+{
+    if([RCTConvert UIColor:json]) {
+       [[UIBarButtonItem appearanceWhenContainedIn:[RNSearchBar class], nil] setTintColor:[RCTConvert UIColor:json]];
+    }
+}
+
 - (NSDictionary *)constantsToExport
 {
   return @{
@@ -143,7 +150,7 @@ RCT_EXPORT_METHOD(unFocus:(nonnull NSNumber *)reactTag)
   [self.bridge.uiManager addUIBlock:
    ^(__unused RCTUIManager *uiManager, NSDictionary *viewRegistry){
      RNSearchBar *searchBar = viewRegistry[reactTag];
-     
+
      if ([searchBar isKindOfClass:[RNSearchBar class]]) {
        [searchBar resignFirstResponder];
      } else {
